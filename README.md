@@ -1,5 +1,9 @@
 # getnet
 
+[![Build Status](https://travis-ci.org/martinusso/getnet.svg?branch=master)](https://travis-ci.org/martinusso/getnet)
+[![Coverage Status](https://coveralls.io/repos/github/martinusso/getnet/badge.svg?branch=master)](https://coveralls.io/github/martinusso/getnet?branch=master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/martinusso/getnet)](https://goreportcard.com/report/github.com/martinusso/getnet)
+
 SDK golang para integração com a API Getnet.
 
 Consulte a documentação oficial da API Getnet https://developers.getnet.com.br/api para maiores detalhes sobre os campos. 
