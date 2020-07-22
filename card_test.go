@@ -37,7 +37,7 @@ func TestCardTokenBadRequest(t *testing.T) {
 	errorMessage := "Mensagem detalhada do erro."
 	server := httptest.NewServer(http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
 		err := ErrorResponseSchemaV1{Details: []Detail{
-			Detail{DescriptionDetail: errorMessage},
+			{DescriptionDetail: errorMessage},
 		},
 			Message: errorMessage}
 		rw.WriteHeader(http.StatusBadRequest)

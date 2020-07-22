@@ -106,7 +106,7 @@ func paymentWithCreditCard(card getnet.Card, credentials getnet.ClientCredential
 			IPAddress: "127.0.0.1",
 		},
 		Shippings: []getnet.Shipping{
-			getnet.Shipping{
+			{
 				FirstName:   "João",
 				Name:        "João da Silva",
 				Email:       "customer@email.com.br",
