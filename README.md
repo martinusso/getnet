@@ -8,38 +8,81 @@ SDK golang para integração com a API Getnet.
 
 Consulte a documentação oficial da API Getnet https://developers.getnet.com.br/api para maiores detalhes sobre os campos. 
 
+## Funcionalidades
 
-## Cartão de Crédito
+- Autenticação
+  - Geração do token de acesso
 
-### Pagamento com cartão de crédito
+- Tokenização
+  - Geração do token do cartão
+
+- Pagamento
+  - Verificação de cartão
+  - Pagamento com cartão de crédito
+
+## Usando
+
+```
+go get "github.com/martinusso/getnet"
+```
+
+### Autenticação - Geração do token de acesso
+
 
 ```
 var err error
-credentials := ClientCredentials{
-	ID:     "1",
-	Secret: "A"}
+
+credentials := getnet.ClientCredentials{
+	ID:     "ecb847f2-e423-40c0-808c-55d2098a92ab",
+	Secret: "1386f27e-0f2e-45f7-9efd-c8fdc1657426"}
 credentials.AccessToken, err = credentials.NewAccessToken()
 if err != nil {
-	// error
+	log.Fatal(err)
 }
+```
 
-payment := Payment{
-	Amount:   100, // Valor da compra em centavos (ex: R$ 1.00 = 100)
+
+### Tokenização - Geração do token do cartão
+
+```
+var err error
+
+card := getnet.Card{
+	CardNumber:      "5155901222280001",
+	CardHolderName:  "JOAO DA SILVA",
+	SecurityCode:    "123",
+	Brand:           "Mastercard",
+	ExpirationMonth: "12",
+	ExpirationYear:  "20",
+}
+card.NumberToken, err = card.Token(credentials)
+if err != nil {
+	log.Fatal(err)
+}
+```
+
+### Cartão de Crédito
+
+#### Pagamento com cartão de crédito
+
+```
+payment := getnet.Payment{
+	Amount:   1.00,
 	Currency: "BRL",
-	Order: Order{
+	Order: getnet.Order{
 		OrderID:     "ea3dae62-1125-4eb4-b3ef-dcb720e8899d",
 		SalesTax:    0,
 		ProductType: Service,
 	},
-	Customer: Customer{
+	Customer: getnet.Customer{
 		CustomerID:     "customer_id",
 		FirstName:      "João",
 		LastName:       "da Silva",
 		Email:          "customer@email.com.br",
 		DocumentType:   "CPF",
 		DocumentNumber: "12345678912",
-		PhoneNumber:    "27987654321", // Telefone do comprador. (sem máscara)
-		BillingAddress: BillingAddress{
+		PhoneNumber:    "27987654321",
+		BillingAddress: getnet.BillingAddress{
 			Street:     "Av. Brasil",
 			Number:     "1000",
 			Complement: "Sala 1",
@@ -50,25 +93,20 @@ payment := Payment{
 			PostalCode: "90230060",
 		},
 	},
-	Credit: Credit{
+	Credit: getnet.Credit{
 		Delayed:            false,
 		Authenticated:      false,
-		Pre_authorization:  false,
+		PreAuthorization:   false,
 		SaveCardData:       false,
 		TransactionType:    Full,
 		NumberInstallments: 1,
 		SoftDescriptor:     "Texto exibido na fatura do cartão do comprador",
 		DynamicMCC:         1799,
-		Card: Card{
-			CardNumber:      "5155901222280001",
-			CardHolderName:  "JOAO DA SILVA",
-			SecurityCode:    "123",
-			Brand:           "Mastercard",
-			ExpirationMonth: "12",
-			ExpirationYear:  "20",
-		},
+		Card: card, // Tokenização - Geração do token do cartão
 	},
 }
 
+// credentials obtido em Autenticação - Geração do token de acesso
 response, error := payment.Pay(credentials)
+
 ```
