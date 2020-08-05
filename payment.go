@@ -46,10 +46,10 @@ type Payment struct {
 	Currency  Currency   `json:"currency"`
 	Order     Order      `json:"order"`
 	Customer  Customer   `json:"customer"`
-	Device    Device     `json:"device"`
-	Shippings []Shipping `json:"shippings"`
-	Credit    Credit     `json:"credit"`
-	Debit     Debit      `json:"debit"`
+	Device    Device     `json:"device,omitempty"`
+	Shippings []Shipping `json:"shippings,omitempty"`
+	Credit    Credit     `json:"credit,omitempty"`
+	Debit     Debit      `json:"debit,omitempty"`
 }
 
 func (p Payment) MarshalJSON() ([]byte, error) {
@@ -126,31 +126,31 @@ func (d Debit) MarshalJSON() ([]byte, error) {
 }
 
 type BillingAddress struct {
-	Street     string `json:"street"`
-	Number     string `json:"number"`
-	Complement string `json:"complement"`
-	District   string `json:"district"`
-	City       string `json:"city"`
-	State      string `json:"state"`
-	Country    string `json:"country"`
-	PostalCode string `json:"postal_code"`
+	Street     string `json:"street,omitempty"`
+	Number     string `json:"number,omitempty"`
+	Complement string `json:"complement,omitempty"`
+	District   string `json:"district,omitempty"`
+	City       string `json:"city,omitempty"`
+	State      string `json:"state,omitempty"`
+	Country    string `json:"country,omitempty"`
+	PostalCode string `json:"postal_code,omitempty"`
 }
 
 type Customer struct {
 	CustomerID     string         `json:"customer_id"`
-	FirstName      string         `json:"first_name"`
-	LastName       string         `json:"last_name"`
-	Name           string         `json:"name"`
-	Email          string         `json:"email"`
-	DocumentType   string         `json:"document_type"`
-	DocumentNumber string         `json:"document_number"`
-	PhoneNumber    string         `json:"phone_number"`
-	BillingAddress BillingAddress `json:"billing_address"`
+	FirstName      string         `json:"first_name,omitempty"`
+	LastName       string         `json:"last_name,omitempty"`
+	Name           string         `json:"name,omitempty"`
+	Email          string         `json:"email,omitempty"`
+	DocumentType   string         `json:"document_type,omitempty"`
+	DocumentNumber string         `json:"document_number,omitempty"`
+	PhoneNumber    string         `json:"phone_number,omitempty"`
+	BillingAddress BillingAddress `json:"billing_address,omitempty"`
 }
 
 type Device struct {
-	DeviceID  string `json:"device_id"`
-	IPAddress string `json:"ip_address"`
+	DeviceID  string `json:"device_id,omitempty"`
+	IPAddress string `json:"ip_address,omitempty"`
 }
 
 type Order struct {
@@ -160,12 +160,12 @@ type Order struct {
 }
 
 type Shipping struct {
-	FirstName      string  `json:"first_name"`
-	Name           string  `json:"name"`
-	Email          string  `json:"email"`
-	PhoneNumber    string  `json:"phone_number"`
-	ShippingAmount float64 `json:"shipping_amount"`
-	Address        Address `json:"address"`
+	FirstName      string  `json:"first_name,omitempty"`
+	Name           string  `json:"name,omitempty"`
+	Email          string  `json:"email,omitempty"`
+	PhoneNumber    string  `json:"phone_number,omitempty"`
+	ShippingAmount float64 `json:"shipping_amount,omitempty"`
+	Address        Address `json:"address,omitempty"`
 }
 
 func (s Shipping) MarshalJSON() ([]byte, error) {
@@ -180,14 +180,14 @@ func (s Shipping) MarshalJSON() ([]byte, error) {
 }
 
 type Address struct {
-	Street     string `json:"street"`
-	Number     string `json:"number"`
-	Complement string `json:"complement"`
-	District   string `json:"district"`
-	City       string `json:"city"`
-	State      string `json:"state"`
-	Country    string `json:"country"`
-	PostalCode string `json:"postal_code"`
+	Street     string `json:"street,omitempty"`
+	Number     string `json:"number,omitempty"`
+	Complement string `json:"complement,omitempty"`
+	District   string `json:"district,omitempty"`
+	City       string `json:"city,omitempty"`
+	State      string `json:"state,omitempty"`
+	Country    string `json:"country,omitempty"`
+	PostalCode string `json:"postal_code,omitempty"`
 }
 
 type PaymentResponse struct {
